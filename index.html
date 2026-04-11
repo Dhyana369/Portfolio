@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhyana Anbalagan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+           /* background: url('starry-night.jpg') center/cover no-repeat; */
+            /* display: flex; */
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 0;
+            margin: 0;
+            background-color: rgb(2, 0, 29);
+            /* justify-content: center; */
+            /* align-items: center; */
+            /* height: 100vh; */
+        }
+        .moon{
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            animation: glow 4s infinite ease-in-out;
+            z-index: 2;
+        }
+        .moon::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: black;
+            border-radius: 50%;
+            display:block;
+            animation: eclipse 4s infinite ease-in-out alternate;
+        }
+        @keyframes eclipse {
+            0% {
+                transform: translateX(10%);
+            }
+            50% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-10%);
+            }
+        }
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 0px white, 0 0 -10px white, 0 0 0px white;
+            }
+            50% {
+                box-shadow: 0 0 25px white, 0 0 60px white, 0 0 10px white;
+            }
+            100% {
+                box-shadow: 0 0 0px white, 0 0 -10px white, 0 0 0px white;
+            }
+        }
+        #preloader{
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: radial-gradient(ellipse at center, #2a0a3e 0%, #12001f 40%, #000000 100%);
+        }
+        #preloader.hidden{
+            opacity: 0;
+            pointer-events: none;
+        }
+        #preloader h1{
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #e0c1f6;
+            position:absolute;
+            bottom: 35%;
+            text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);
+            z-index: 2;
+        }
+        #starfield{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            
+        }
+        header{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        nav{
+            position: sticky;
+            top: 0;
+            width: min(1120px, 100%);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            /* padding: 0px 0px; */
+
+            background: rgba(147, 4, 250, 0);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+
+            border-radius: 20px;
+            margin: 10px auto;
+            
+            border: 1px solid rgba(199, 125, 255, 0.45); /* a thin line under the nav bar*/
+            box-shadow: 
+                0 5px 30px rgba(0,0,0,0.5),
+                0 0 25px rgba(248, 247, 249, 0.3);
+            z-index: 1000;
+        }
+        ul{
+            display: flex;
+            list-style: none;
+            gap: 20px;        
+        }
+        nav a{
+            text-decoration: none;
+            color: white;
+            transition: color 0.4s ease;
+        }
+        nav a:hover{
+            color: #ffffff;
+        }
+        nav a.active{
+            color: #c77dff;
+        }
+        nav ul{
+            position: relative;
+        }
+        nav ul li{
+            position: relative;
+            z-index: 1;
+        }
+        nav ul li a{
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        nav ul li a::after{
+            content:"";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            /* background: #c77dff; */
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover{
+            background: rgba(220, 207, 230, 0.15); /* nav hover pill*/
+        }
+        nav ul li a:hover::after{
+            width: 100%;
+        }
+        nav ul li a.active{
+            background: rgba(70, 49, 86, 0.3);
+            color: #ffffff;
+        }
+        .nav-container{
+            width: min(1120px, 92%);
+            margin: 0 auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-highlight{
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            height: 100%;
+            width: 0;
+
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            transition: all 0.3s ease;
+            z-index: 0;
+        }
+        .logo{
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);
+        }
+        .hero{
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .hero-bg{
+            position: absolute;
+            inset: 0;
+
+            background: url('starry-night.jpg');
+            background-size: cover;
+            background-position: center top;
+
+            filter: saturate(0.85) brightness(0.75);   
+            z-index: -2;
+            /* -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%); */
+        }
+        .hero-overlay{
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                rgba(148, 4, 250, 0.4),
+                rgba(0, 0, 1, 0.85)
+            );
+            z-index: 0;
+        }
+        .hero::after{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: radial-gradient(to bottom, transparent, #000000);
+            z-index: 0;
+        }
+        .container{
+            /* border-radius: 0px; */
+            width: min(1120px, 92%);
+            margin: 0 auto;
+        }
+        .hero-grid{
+            position: relative;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 60px;
+            align-items: center;
+            z-index: 1;
+        }
+        .hero-copy h1{
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #e0c1f6;
+            margin-top: 0;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px rgba(199, 125, 255, 0.6);
+        }
+        .hero-copy p{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.125rem;
+            color: #e6d6ff;
+            line-height: 1.6;
+        }
+        .hero-copy {
+            transform: translateY(-10px);
+        }
+        .about-photo{
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 1px solid rgba(199, 125, 255, 0.45);
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.5),
+                0 0 25px rgba(199, 125, 255, 0.3);
+            animation: float 7s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        @media (max-width: 960px) {
+            .hero-grid{
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-photo{
+                width: 240px;
+                margin: 0 auto;
+            }
+        }
+        .eyebrow{
+            font-family: 'Josefin Sans', sans-serif;
+            text-transform: uppercase;
+            color: #750ac7;
+            letter-spacing: 2px;
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+        }
+        section{
+            /* min-height: 100vh; */
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="global-overlay"></div>
+    <canvas id="starfield"></canvas>
+    <div id="preloader">
+        <div class="moon"></div>
+        <h1>entering the cosmos...</h1>
+    </div>
+ <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <header>
+            <nav>
+                <div class="nav-container">
+                    <a class="logo">Dhyana Anbalagan</a>
+
+                    <ul id="navMenu">
+                        <div class="nav-highlight"></div>
+
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container hero-grid">
+            <img class="about-photo" src="croppeds.jpg"alt="Dhyana Anbalagan">
+            <div class="hero-copy">
+                <p class="eyebrow">AI & Data Science</p>
+                <h1>Hi, I'm Dhyana</h1>
+                <p>Crafting thoughtful, artistic products at the intersection of intelligence and imagination.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About me</h2>
+        <p></p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+    </section>
+<script>
+    //startfield bg
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        stars = Array.from({length: 150}, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1 + 1,
+            opacity : Math.random() * 0.8 + 0.2,
+            speed: Math.random() * 0.02 + 0.01,
+            twinkleSpeed: Math.random() * 0.002 + 0.005,
+            twinkleDir: Math.random() > 0.5 ? 1 : -1
+        }));
+    }
+
+    function draw(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+            star.y += star.speed;
+            if(star.y > canvas.height) star.y = 0;
+
+            // Twinkle — fade opacity up and down
+            star.opacity += star.twinkleSpeed * star.twinkleDir;
+            if(star.opacity > 1) {
+                star.opacity = 1;
+                star.twinkleDir = -1;
+            }
+            if(star.opacity <= 0.1) {
+                star.opacity = 0.1;
+                star.twinkleDir = 1;
+            }
+
+            const gradient = ctx.createRadialGradient(
+                star.x, star.y, 0, 
+                star.x, star.y, star.r * 4
+            );
+
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
+            gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+            
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+
+    // preloader
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('preloader').classList.add('hidden');
+        }, 90);
+    });
+
+    resize();
+    draw();
+
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    window.addEventListener("scroll", () => {
+        let current = "";
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+
+            if(scrollY >= sectionTop - 100){
+                current = section.getAttribute("id");
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove("active");
+            if(link.getAttribute("href") === "#" + current){
+                link.classList.add("active");
+            }
+        });
+    });
+
+    // moving pill
+    const links = document.querySelectorAll("#navMenu a");
+    const highlight = document.querySelector(".nav-highlight");
+
+    function moveHighlight(el){
+        const rect = el.getBoundingClientRect();
+        const parentRect = el.parentElement.parentElement.getBoundingClientRect();
+
+        highlight.style.width = rect.width + "px";
+        highlight.style.height = rect.height + "px";
+        highlight.style.left = (rect.left - parentRect.left) + "px";
+        highlight.style.top = (rect.top - parentRect.top) + "px";
+    }
+    links.forEach(link => {
+        link.addEventListener("click", () => {
+            moveHighlight(link);
+        });
+    });
+    // default - first item
+    window.addEventListener("load", () =>{
+        moveHighlight(links[0]);
+    });
+
+    // auto scroll
+    window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop; // find curr section
+            if(window.scrollY >= sectionTop - 120){ // track scroll position
+                current = section.getAttribute("id");
+            }
+        });
+        links.forEach(link => {
+            if(link.getAttribute("href") === "#" + current) { // match nav link
+                moveHighlight(link); // moves the highlight
+            }
+        });
+    });
+</script>
+</body>
+</html>
