@@ -93,6 +93,7 @@
             z-index: 0;
             pointer-events: none;
             mix-blend-mode: screen;
+            display: block;
             
         }
         header{
@@ -156,7 +157,7 @@
             padding: 6px 12px;
             border-radius: 20px;
             text-decoration: none;
-            color: white;
+            color:#ffffff;
             font-family: 'Josefin Sans', sans-serif;
             font-size: 1.25rem;
             transition: all 0.3s ease;
@@ -179,7 +180,7 @@
         }
         nav ul li a.active{
             background: rgba(70, 49, 86, 0.3);
-            color: #ffffff;
+            color: #e0c1f6 !important;
         }
         .nav-container{
             width: min(1120px, 92%);
@@ -261,9 +262,10 @@
         .hero-grid{
             position: relative;
             display: grid;
-            grid-template-columns: 340px 1fr;
+            grid-template-columns: 1fr;
             gap: 60px;
             align-items: center;
+            justify-items: center;
             z-index: 1;
         }
         .hero-copy h1{
@@ -282,17 +284,7 @@
         }
         .hero-copy {
             transform: translateY(-10px);
-        }
-        .about-photo{
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 1px solid rgba(199, 125, 255, 0.45);
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.5),
-                0 0 25px rgba(199, 125, 255, 0.3);
-            animation: float 7s ease-in-out infinite;
+            text-align: center;
         }
         @keyframes float {
             0%, 100% {
@@ -300,16 +292,6 @@
             }
             50% {
                 transform: translateY(-10px);
-            }
-        }
-        @media (max-width: 960px) {
-            .hero-grid{
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .about-photo{
-                width: 240px;
-                margin: 0 auto;
             }
         }
         .eyebrow{
@@ -320,14 +302,95 @@
             font-size: 0.875rem;
             margin-bottom: 8px;
         }
-        section{
+        #about{
+            padding: 100px 20px;
+        }
+        .about-container{
+            width: min(1100px, 90%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .about-photo{
+            width: 300px;
+            min-width: 300px;/*wont shrink below this*/
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 1px solid rgba(199, 125, 255, 0.45);
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.5),
+                0 0 25px rgba(199, 125, 255, 0.3);
+            animation: float 7s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        .about-text{
+            color: white;
+            text-align: left;
+        }
+        .section-container{
+            width: min(1100px, 90%);
+            margin: 0 auto;
+        }
+        .section-title{
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.6rem;
+            color:#e0b3ff;
+            margin-bottom: 8px;
+            /* margin-right: 10px; */
+            text-align: left;
+        }
+        .section-subtitle{
+            color: #9f63cd; 
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            /* margin-top: 5px; */
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .section-divider{
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, #c77dff, transparent);
+            margin-bottom: 36px;
+            border-radius: 2px;
+        }
+        .about-text p{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color:#e0c1f6
+        }
+        section{ 
             /* min-height: 100vh; */
             padding: 10px;
             position: relative;
             z-index: 1;
             color: white;
         }
-        
+        @media (max-width: 720px) {
+            nav ul li a.active{
+                color: #c77dff;
+            }
+            .hero-grid{
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-photo{
+                width: 240px;
+                margin: 0 auto;
+                order: 1;
+            }
+            .about-container{
+                flex-direction: column;
+            }
+            .about-text{
+                order: 2;
+            }
+        }
     </style>
 </head>
 <body>
@@ -358,7 +421,6 @@
         </header>
 
         <div class="container hero-grid">
-            <img class="about-photo" src="croppeds.jpg"alt="Dhyana Anbalagan">
             <div class="hero-copy">
                 <p class="eyebrow">AI & Data Science</p>
                 <h1>Hi, I'm Dhyana</h1>
@@ -368,20 +430,70 @@
     </section>
 
     <section id="about">
-        <h2>About me</h2>
-        <p></p>
+        <div class="section-container"> 
+            <h2 class="section-title">About me</h2>
+            <p class="section-subtitle">Hello there!!</p>
+            <div class="section-divider"></div>
+            <div class="about-container">
+                <img class="about-photo" src="croppeds.jpg"alt="Dhyana Anbalagan">
+                <div class="about-text">
+                    
+                    
+                    <p>I’m Dhyana, an AI & Data Science student passionate about building thoughtful digital products that combine creativity, logic, and purpose. 
+                        My work lies at the intersection of technology and design — from developing automation tools to crafting immersive experiences inspired by art.
+                    </p>
+                    <p>While I’m deeply interested in data science and intelligent systems, I also enjoy transforming ideas into real, usable applications through coding and experimentation. 
+                        I see myself as a problem solver who loves creating meaningful technology that feels both functional and human.
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="projects">
-        <h2>Projects</h2>
+        <div class="section-container"> 
+            <h2 class="section-title">Projects</h2>
+            <p class="section-subtitle">A selection of things I've built and am building.</p>
+            <div class="section-divider"></div>
+        </div>
     </section>
 
     <section id="skills">
-        <h2>Skills</h2>
+        <div class="section-container"> 
+            <h2 class="section-title">Skills</h2>
+            <p class="section-subtitle">Technologies and tools I work with.</p>
+            <div class="section-divider"></div>
+        </div>
     </section>
 
     <section id="contact">
-        <h2>Contact</h2>
+        <div class="section-container"> 
+            <h2 class="section-title">Contact</h2>
+            <p class="section-subtitle">Got a project or just want to say hello?</p>
+            <div class="section-divider"></div>
+            <div class="contact-wrapper">
+                <form id="contact-form">
+                    <div class="form-row">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your name" required />
+                        <span class="error" id="error-name"></span>
+                    </div>
+                    <div class="form-row">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" required />
+                        <span class="error" id="error-email"></span>
+                    </div>
+                    <div class="form-row">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+                        <span class="error" id="error-email"></span>
+                    </div>
+                </form>
+                <div class="social-icons">
+                    <a ></a>
+                </div>
+            </div>
+        </div>
     </section>
 <script>
     //startfield bg
@@ -440,9 +552,9 @@
     window.addEventListener('load', () => {
         setTimeout(() => {
             document.getElementById('preloader').classList.add('hidden');
-        }, 90);
+        }, 0);
     });
-
+    window.addEventListener('resize', resize);
     resize();
     draw();
 
