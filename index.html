@@ -1,4 +1,4 @@
-✋🏻<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -370,9 +370,135 @@
             color:#e0c1f6
         }
 
-        /* Projects */
+        /* Projects*/
         #projects{
             padding: 80px 20px 40px; 
+        }
+        .flip-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+        }
+        .flip-card{
+            height: 380px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flip-inner{
+            position: relative;
+            width: 100%;
+            height: 100px;
+            transform-style: preserve-3d;
+            transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        .flip-card:hover .flip-inner, .flip-card.flipped .flip-inner{
+            transform: rotateY(180deg);
+        }
+        .flip-front, .flip-back{
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            overflow: hidden;
+        }
+        /* Front */
+        .flip-front{
+            display: flex;
+            flex-direction: column;
+        }
+        .flip-front img{
+            padding: 16px 18px;
+            background: rgba(20, 5, 40, 0.85);
+            backdrop-filter: blur(6px);
+        }
+        .flip-front-bar h3{
+            font-family: 'Dancing Script', cursive;
+            color: #e0c1f6; 
+            margin: 0 0 4px; 
+            font-size: 1.4rem;
+        }
+        .flip-front-bar p{
+            font-family: 'Josefin Sans', sans-serif;
+            color: #9f7abd; 
+            font-size: 0.78rem;
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            margin: 0;
+        }
+        /* FRONT placeholder when no image */
+        .flip-front-placeholder{
+            flex: 1;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: radial-gradient(
+                ellipse at 50% 30%, 
+                rgba(120,40,200,0.35), 
+                rgba(10,0,30,0.9));
+            font-size: 3rem; 
+            color: #c77dff;
+        }
+         /* BACK – description + tech */
+        .flip-back{
+            transform: rotateY(180deg);
+            background: linear-gradient(
+                160deg, 
+                rgba(50,10,90,0.97) 0%, 
+                rgba(10,0,30,0.98) 100%);
+            display: flex; 
+            flex-direction: column;
+            padding: 26px 22px;
+            gap: 14px;
+        }
+        .flip-back h3{
+            font-family: 'Dancing Script', cursive;
+            color: #e0c1f6; 
+            margin: 0; 
+            font-size: 1.4rem;
+        }
+        .flip-back p{
+            font-family: 'Josefin Sans', sans-serif;
+            color: #cbaee8; 
+            font-size: 0.9rem;
+            line-height: 1.65; 
+            margin: 0; 
+            flex: 1;
+        }
+         .tech-stack{
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 7px;
+        }
+        .tech-tag{
+            padding: 5px 12px; 
+            border-radius: 999px;
+            border: 1px solid rgba(199,125,255,0.4);
+            background: rgba(100,30,180,0.2);
+            color: #ddc0ff;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 0.75rem; 
+            letter-spacing: 0.5px;
+        }
+        .flip-links{
+            display: flex; 
+            gap: 12px; 
+            margin-top: 4px;
+        }
+        .flip-links a{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 0.82rem; 
+            color: #c77dff;
+            text-decoration: none; 
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(199,125,255,0.3);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+         .flip-links a:hover{ 
+            color: #e0b3ff; 
+            border-color: #e0b3ff; 
         }
 
         /* Skills */
@@ -730,23 +856,23 @@
             <div class="flip-grid">
                 <!-- card 1 -->
                 <div class="flip-card">
-                    <div>
-                        <div>
-                            <div>✦</div>
-                            <div>
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="flip-front-placeholder">✦</div>
+                            <div class="flip-front-bar">
                                 <h3>Project Name</h3>
                                 <p>hover</p>
                             </div>
                         </div>
-                        <div>
+                        <div class="flip-back">
                             <h3>Project name</h3>
                             <p>Description</p>
-                            <div>
-                                <span>Py</span>
-                                <span>Flask</span>
-                                <span>ML</span>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Py</span>
                             </div>
-                            <div>
+                            <div class="flip-links">
                                 <a href="#" target="_blank">GitHub</a>
                                 <a href="#" target="_blank">Live</a>
                             </div>
@@ -755,24 +881,24 @@
                 </div>
 
                  <!-- card 2 -->
-                <div>
-                    <div>
-                        <div>
-                            <div>✦</div>
-                            <div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="flip-front-placeholder">✦</div>
+                            <div class="flip-front-bar">
                                 <h3>Project Name</h3>
                                 <p>hover</p>
                             </div>
                         </div>
-                        <div>
+                        <div class="flip-back">
                             <h3>Project name</h3>
                             <p>Description</p>
-                            <div>
-                                <span>Py</span>
-                                <span>Flask</span>
-                                <span>ML</span>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Py</span>
                             </div>
-                            <div>
+                            <div class="flip-links">
                                 <a href="#" target="_blank">GitHub</a>
                                 <a href="#" target="_blank">Live</a>
                             </div>
@@ -781,24 +907,24 @@
                 </div>
 
                 <!-- card 3 -->
-                 <div>
-                    <div>
-                        <div>
-                            <div>✦</div>
-                            <div>
+                 <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="flip-front-placeholder">✦</div>
+                            <div class="flip-front-bar">
                                 <h3>Project Name</h3>
                                 <p>hover</p>
                             </div>
                         </div>
-                        <div>
+                        <div class="flip-back">
                             <h3>Project name</h3>
                             <p>Description</p>
-                            <div>
-                                <span>Py</span>
-                                <span>Flask</span>
-                                <span>ML</span>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Py</span>
                             </div>
-                            <div>
+                            <div class="flip-links">
                                 <a href="#" target="_blank">GitHub</a>
                                 <a href="#" target="_blank">Live</a>
                             </div>
