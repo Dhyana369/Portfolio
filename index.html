@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+✋🏻<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -306,34 +306,6 @@
             font-size: 0.875rem;
             margin-bottom: 8px;
         }
-        #about{
-            padding: 100px 20px;
-        }
-        .about-container{
-            width: min(1100px, 90%);
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-        .about-photo{
-            width: 300px;
-            min-width: 300px;/*wont shrink below this*/
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 1px solid rgba(199, 125, 255, 0.45);
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.5),
-                0 0 25px rgba(199, 125, 255, 0.3);
-            animation: float 7s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-        .about-text{
-            color: white;
-            text-align: left;
-        }
         .section-container{
             width: min(1100px, 90%);
             margin: 0 auto;
@@ -362,12 +334,194 @@
             margin-bottom: 36px;
             border-radius: 2px;
         }
+        /* About */
+        #about{
+            padding: 100px 20px;
+        }
+        .about-container{
+            width: min(1100px, 90%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .about-photo{
+            width: 300px;
+            min-width: 300px;/*wont shrink below this*/
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 1px solid rgba(199, 125, 255, 0.45);
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.5),
+                0 0 25px rgba(199, 125, 255, 0.3);
+            animation: float 7s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        .about-text{
+            color: white;
+            text-align: left;
+        }
         .about-text p{
             font-family: 'Josefin Sans', sans-serif;
             font-size: 1.1rem;
             line-height: 1.8;
             color:#e0c1f6
         }
+
+        /* Skills */
+        .orb-card{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px 28px;
+            border-radius: 50% 50% 40% 40% / 40% 40% 28px 28px;
+            background: radial-gradient(
+                ellipse at 40% 30%,
+                rgba(180, 100, 255, 0.18) 0%,
+                rgba(80, 20, 140, 0.22) 60%,
+                transparent 100%
+            );
+            border: 1px solid rgba(199, 125, 255, 0.28);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+        }
+        .orb-grid:hover .orb-card{
+            opacity: 0.35;
+            filter: blur(1px);
+            transition: all 0.4s ease;
+        }
+        .orb-grid .orb-card:hover {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1.06) translateY(-12px);
+            z-index: 5;
+        }
+        .orb-card::before {
+            content: "";
+            position: absolute;
+            top: -180px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 260px;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.22),
+                rgba(220,180,255,0.08),
+                transparent 85%
+            );
+            clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .orb-card:hover::before {
+            opacity: 1;
+        }
+        .orb-card::after {
+            content: "";
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(230,210,255,0.9);
+            box-shadow:
+                0 0 18px rgba(220,180,255,0.8),
+                0 0 35px rgba(200,150,255,0.35);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .orb-card:hover::after {
+            opacity: 1;
+        }
+
+        .orb-card:hover {
+            transform: translateY(-10px) scale(1.04);
+            /* box-shadow:
+                0 0 40px rgba(220,180,255,0.25),
+                0 0 90px rgba(140,70,220,0.18); */
+            filter: brightness(1.15);
+        }
+        .orb-glow{
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* background: radial-gradient(circle,
+                rgba(199,125,255,0.55) 0%,
+                transparent 70%); */
+            filter: blur(5px);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .orb-icon {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #f2d6ff;
+        }
+        .orb-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e0b3ff;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .skill-pills {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+        .skill-pill {
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(199,125,255,0.28);
+            background: rgba(130,50,200,0.14);
+            color: #ddc0ff;
+            font-size: 0.82rem;
+            text-align: center;
+            transition: background 0.25s ease;
+        }
+        .orb-card:hover .skill-pill {
+            background: rgba(150,70,220,0.24);
+        }
+        @keyframes pulse {
+            0%,100% {
+                opacity: 0.5;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+        /* floating motion */
+        .orb-card:nth-child(1) {
+            animation: floatOrb 6s ease-in-out infinite;
+        }
+        .orb-card:nth-child(2) {
+            animation: floatOrb 7s ease-in-out infinite 0.8s;
+        }
+        .orb-card:nth-child(3) {
+            animation: floatOrb 5.5s ease-in-out infinite 1.5s;
+        }
+        @keyframes floatOrb {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+
+        /* Contact */
         .contact-wrapper{
             display: flex;
             flex-direction: column;
@@ -471,6 +625,10 @@
             .about-text{
                 order: 2;
             }
+            /* skills */
+            .orb-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .site-footer{
             text-align: center;
@@ -553,6 +711,45 @@
             <h2 class="section-title">Skills</h2>
             <p class="section-subtitle">Technologies and tools I work with.</p>
             <div class="section-divider"></div>
+
+            <div class="orb-grid">
+                <!-- orb 1 -->
+                 <div class="orb-card">
+                    <div class="orb-glow"></div>
+                    <div class="orb-icon">✦</div>
+                    <div class="orb-title">Languages</div>
+                    <div class="skill-pills">
+                        <div class="skill-pill">Java</div>
+                        <div class="skill-pill">Python</div>
+                        <div class="skill-pill">SQL</div>
+                    </div>
+                </div>
+
+                <!-- frame 2 -->
+                <div class="orb-card">
+                    <div class="orb-glow"></div>
+                    <div class="orb-icon">◈</div>
+                    <div class="orb-title">Data Science</div>
+                    <div class="skill-pills">
+                        <div class="skill-pill">Pandas</div>
+                        <div class="skill-pill">NumPy</div>
+                        <div class="skill-pill">Machine Learning</div>
+                    </div>
+                </div>
+
+                <!-- frame 3 -->
+                <div class="orb-card">
+                    <div class="orb-glow"></div>
+                    <div class="orb-icon">⬡</div>
+                    <div class="orb-title">Web Tools</div>
+                    <div class="skill-pills">
+                        <div class="skill-pill">HTML / CSS</div>
+                        <div class="skill-pill">Flask</div>
+                        <div class="skill-pill">GitHub</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
