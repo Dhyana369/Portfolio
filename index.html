@@ -387,7 +387,7 @@
         .flip-inner{
             position: relative;
             width: 100%;
-            height: 100px;
+            height: 100%;
             transform-style: preserve-3d;
             transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
@@ -413,9 +413,14 @@
             background: rgba(20, 5, 40, 0.85);
             backdrop-filter: blur(6px);
         }
+         .flip-front-bar{
+            padding: 16px 18px;
+            background: rgba(20, 5, 40, 0.85);
+            backdrop-filter: blur(6px);
+        }
         .flip-front-bar h3{
-            font-family: 'Dancing Script', cursive;
-            color: #e0c1f6; 
+            font-family: 'Garamond', serif;
+            color: #eed6ff; 
             margin: 0 0 4px; 
             font-size: 1.4rem;
         }
@@ -855,77 +860,156 @@
 
             <div class="flip-grid">
                 <!-- card 1 -->
-                <div class="flip-card">
-                    <div class="flip-inner">
-                        <div class="flip-front">
-                            <div class="flip-front-placeholder">✦</div>
-                            <div class="flip-front-bar">
-                                <h3>Project Name</h3>
-                                <p>hover</p>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <h3>Project name</h3>
-                            <p>Description</p>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Py</span>
-                                <span class="tech-tag">Py</span>
-                                <span class="tech-tag">Py</span>
-                            </div>
-                            <div class="flip-links">
-                                <a href="#" target="_blank">GitHub</a>
-                                <a href="#" target="_blank">Live</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- card 2 -->
-                <div class="flip-card">
-                    <div class="flip-inner">
-                        <div class="flip-front">
-                            <div class="flip-front-placeholder">✦</div>
-                            <div class="flip-front-bar">
-                                <h3>Project Name</h3>
-                                <p>hover</p>
-                            </div>
-                        </div>
-                        <div class="flip-back">
-                            <h3>Project name</h3>
-                            <p>Description</p>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Py</span>
-                                <span class="tech-tag">Py</span>
-                                <span class="tech-tag">Py</span>
-                            </div>
-                            <div class="flip-links">
-                                <a href="#" target="_blank">GitHub</a>
-                                <a href="#" target="_blank">Live</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- card 3 -->
                  <div class="flip-card">
                     <div class="flip-inner">
                         <div class="flip-front">
-                            <div class="flip-front-placeholder">✦</div>
+                            <img src="loan.png" alt="AI Powered Loan Eligibility Advisor" style="width:100%; height:250px; object-fit:cover; display:block;">
                             <div class="flip-front-bar">
-                                <h3>Project Name</h3>
+                                <h3>AI Powered Loan Eligibility Advisor</h3>
                                 <p>hover</p>
                             </div>
                         </div>
                         <div class="flip-back">
-                            <h3>Project name</h3>
-                            <p>Description</p>
+                            <h3>AI Powered Loan Eligibility Advisor</h3>
+                            <p>An intelligent web application that evaluates a user’s loan eligibility by analyzing financial and personal data such as income, credit score and employment status. It uses machine learning to provide accurate eligibility predictions and helps users understand their chances before applying for loans.</p>
                             <div class="tech-stack">
-                                <span class="tech-tag">Py</span>
-                                <span class="tech-tag">Py</span>
-                                <span class="tech-tag">Py</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Machine Learning</span>
+                                <span class="tech-tag">Flask / Streamlit</span>
+                                <span class="tech-tag">NumPy</span>
+                                <span class="tech-tag">Pandas</span>
                             </div>
                             <div class="flip-links">
-                                <a href="#" target="_blank">GitHub</a>
+                                <a href="https://github.com/Dhyana369/AI_Powered_Loan_Eligibility_Advisor" target="_blank">GitHub</a>
+                                <a href="https://ai-poweredloaneligibilityadvisor-ixtm5sewigxejcfwvyfjtr.streamlit.app/" target="_blank">Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card 2 -->
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="DailyDrop.png" alt="DailyDrop" style="width:100%; height:250px; object-fit:cover; display:block;">
+                            <div class="flip-front-bar">
+                                <h3>DailyDrop – Word of the Day</h3>
+                                <p>hover</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h3>DailyDrop</h3>
+                            <p>A productivity tool that delivers a new vocabulary word directly to the user’s inbox every day, helping improve language skills consistently. The system automates word retrieval, email scheduling, and website redirection for seamless learning.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Flask</span>
+                                <span class="tech-tag">SMTP</span>
+                                <span class="tech-tag">APIs</span>
+                            </div>
+                            <div class="flip-links">
+                                <a href="https://github.com/Dhyana369/DailyDrop" target="_blank">GitHub</a>
+                                <a href="https://dhyana.pythonanywhere.com" target="_blank">Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- card 3 -->
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="Tomato.png" alt="Tomato" style="width:100%; height:250px; object-fit:cover; display:block;">
+                            <div class="flip-front-bar">
+                                <h3>Tomato</h3>
+                                <p>hover</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Tomato</h3>
+                            <p>A full-stack food ordering app with a normalized MySQL backend, Flask API, and live deployment. Built to showcase relational database design — featuring multi-table JOINs, revenue analytics, and transaction-safe order placement.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Flask</span>
+                                <span class="tech-tag">MySQL</span>
+                            </div>
+                            <div class="flip-links">
+                                <a href="https://github.com/Dhyana369/Tomato" target="_blank">GitHub</a>
+                                <a href="http://dhyana5.pythonanywhere.com" target="_blank">Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card 4-->
+                 <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="NumberGuessingGame.png" alt="Number Guessing Game" style="width:100%; height:250px; object-fit:cover; display:block;">
+                            <div class="flip-front-bar">
+                                <h3>Number Guessing Game</h3>
+                                <p>hover</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Number Guessing Game</h3>
+                            <p>An interactive game where users attempt to guess a randomly generated number within a limited number of tries. It demonstrates logic building, condition handling, and user interaction in a fun way.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Flask</span>
+                            </div>
+                            <div class="flip-links">
+                                <a href="https://github.com/Dhyana369/number-guessing" target="_blank">GitHub</a>
+                                <a href="https://numguess-13sp.onrender.com" target="_blank">Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card 5 -->
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="MoodQuote.png" alt="Mood Quote" style="width:100%; height:250px; object-fit:cover; display:block;">
+                            <div class="flip-front-bar">
+                                <h3>Mood Quote</h3>
+                                <p>hover</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Mood Quote</h3>
+                            <p>A web app that suggests motivational or reflective quotes based on the user’s selected mood. It creates a personalized emotional experience by matching moods with curated inspirational content.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Streamlit</span>
+                            </div>
+                            <div class="flip-links">
+                                <a href="https://github.com/Dhyana369/Mood_Quote_App" target="_blank">GitHub</a>
+                                <a href="https://moodquoteapp-7j3x5ut7qk6n2gjfvh7ngk.streamlit.app/" target="_blank">Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card 6 -->
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="Portfolio.png" alt="This Portfolio" style="width:100%; height:250px; object-fit:cover; display:block;">
+                            <div class="flip-front-bar">
+                                <h3>This Portfolio</h3>
+                                <p>hover</p>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Portfolio</h3>
+                            <p>A creative personal portfolio showcasing projects, technical skills, and achievements through an artistic “Starry Night”-inspired design. Built to reflect both professional identity and creative individuality with responsive and elegant UI design.</p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <div class="flip-links">
+                                <a href="https://github.com/Dhyana369/Portfolio" target="_blank">GitHub</a>
                                 <a href="#" target="_blank">Live</a>
                             </div>
                         </div>
