@@ -31,7 +31,7 @@
             position: relative;
             overflow: hidden;
             animation: glow 4s infinite ease-in-out;
-            z-index: 2;
+            z-index: 10001;
         }
         .moon::before{
             content: "";
@@ -98,13 +98,14 @@
             pointer-events: none;
             mix-blend-mode: screen;
             display: block;
+            z-index: 10000;
         }
         header{
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
+            z-index: 9998;
             display: flex;
             justify-content: center;
             margin-top: 10px;
@@ -131,7 +132,7 @@
             box-shadow: 
                 0 5px 30px rgba(0,0,0,0.5),
                 0 0 25px rgba(248, 247, 249, 0.3);
-            z-index: 1000;
+            z-index: 9998;
         }
         ul{
             display: flex;
@@ -383,6 +384,7 @@
             height: 380px;
             perspective: 1000px;
             cursor: pointer;
+            isolation: isolate;
         }
         .flip-inner{
             position: relative;
@@ -524,7 +526,7 @@
             align-items: center;
             padding: 32px 20px 28px;
             border-radius: 20px;
-            /* border-radius: 50% 50% 40% 40% / 40% 40% 28px 28px; */
+            border-radius: 50% 50% 5% 5% / 40% 40% 28px 28px;
             background: radial-gradient(
                 ellipse at 40% 30%,
                 rgba(180, 100, 255, 0.18) 0%,
@@ -1165,6 +1167,7 @@
     window.addEventListener('load', () => {
         setTimeout(() => {
             document.getElementById('preloader').classList.add('hidden');
+            document.getElementById('starfield').style.zIndex = '0';
         }, 6800);
     });
     window.addEventListener('resize', resize);
