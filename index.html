@@ -8,20 +8,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html{
             scroll-behavior: smooth;
+            cursor: none;
         }
         body{
-           /* background: url('starry-night.jpg') center/cover no-repeat; */
-            /* display: flex; */
             min-height: 100vh;
             overflow-x: hidden;
             padding: 0;
             margin: 0;
             background-color: rgb(2, 0, 29);
-            /* justify-content: center; */
-            /* align-items: center; */
-            /* height: 100vh; */
+            cursor: none;
+        }
+        *,
+        *::before,
+        *::after{
+            cursor:none !important;
+        }
+        #trail{
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        #cursorHead{
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background:
+            radial-gradient(
+                circle at 38% 35%,
+                #ffffff 0%,
+                #e9d5ff 40%,
+                #a855f7 100%
+            );
+
+            box-shadow:
+            0 0 5px 2px rgba(233,213,255,1),
+            0 0 14px 6px rgba(168,85,247,0.8),
+            0 0 28px 10px rgba(126,34,206,0.4);
+
+            transform: translate(-50%, -50%);
+            will-change: left, top;
         }
         .moon{
             width: 150px;
@@ -817,6 +852,8 @@
     </style>
 </head>
 <body>
+    <canvas id="trail"></canvas>
+    <div id="cursorHead"></div>
     <div class="global-overlay"></div>
     <canvas id="starfield"></canvas>
     <div id="preloader">
@@ -1124,6 +1161,206 @@
 </footer>
 
 <script>
+    // SHOOTING STAR CURSOR
+    const trailCanvas = document.getElementById('trail');
+    const trailCtx = trailCanvas.getContext('2d');
+
+    function resizeTrail() {
+        trailCanvas.width = window.innerWidth;
+        trailCanvas.height = window.innerHeight;
+    }
+
+    resizeTrail();
+
+    window.addEventListener('resize', resizeTrail);
+
+    let mouseX = -999;
+    let mouseY = -999;
+
+    let headX = -999;
+    let headY = -999;
+
+    let started = false;
+
+    const HISTORY = 12;
+    const trail = [];
+
+    const cursorHead = document.getElementById('cursorHead');
+
+    document.addEventListener('mousemove', (e) => {
+
+        if (!started) {
+
+            headX = e.clientX;
+            headY = e.clientY;
+
+            started = true;
+        }
+
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // SPLINE
+    function cr(p0, p1, p2, p3, t) {
+
+        const t2 = t * t;
+        const t3 = t2 * t;
+
+        return {
+
+            x: 0.5 * (
+                (2 * p1.x) +
+                (-p0.x + p2.x) * t +
+                (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+                (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3
+            ),
+
+            y: 0.5 * (
+                (2 * p1.y) +
+                (-p0.y + p2.y) * t +
+                (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+                (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3
+            )
+        };
+    }
+    function buildSpline(pts, steps = 10) {
+
+        const p = [
+            pts[0],
+            ...pts,
+            pts[pts.length - 1]
+        ];
+
+        const out = [];
+
+        for (let i = 1; i < p.length - 2; i++) {
+
+            for (let s = 0; s < steps; s++) {
+
+                out.push(
+                    cr(
+                        p[i - 1],
+                        p[i],
+                        p[i + 1],
+                        p[i + 2],
+                        s / steps
+                    )
+                );
+            }
+        }
+
+        out.push(pts[pts.length - 1]);
+
+        return out;
+    }
+
+    function lerp(a, b, t) {
+        return a + (b - a) * t;
+    }
+
+    // GLOW PASS
+    function glowPass(
+        pts,
+        N,
+        maxW,
+        maxA,
+        [r, g, b]
+    ) {
+
+        for (let i = 0; i < N - 1; i++) {
+
+            const t = i / (N - 1);
+
+            const taper =
+                Math.pow(1 - t, 1.4);
+
+            const w = taper * maxW;
+
+            if (w < 0.05) continue;
+
+            const a = taper * maxA;
+
+            trailCtx.beginPath();
+
+            trailCtx.moveTo(
+                pts[i].x,
+                pts[i].y
+            );
+
+            trailCtx.lineTo(
+                pts[i + 1].x,
+                pts[i + 1].y
+            );
+
+            trailCtx.strokeStyle =
+                `rgba(${r},${g},${b},${a})`;
+
+            trailCtx.lineWidth = w;
+
+            trailCtx.lineCap = 'round';
+            trailCtx.lineJoin = 'round';
+
+            trailCtx.stroke();
+        }
+    }
+
+    // ANIMATION
+    function drawCursor() {
+
+        requestAnimationFrame(drawCursor);
+
+        if (!started) return;
+
+        headX = lerp(headX, mouseX, 0.18);
+        headY = lerp(headY, mouseY, 0.18);
+
+        const prevX =
+            trail[0] ? trail[0].x : headX;
+
+        const prevY =
+            trail[0] ? trail[0].y : headY;
+
+        const speed = Math.hypot(
+            headX - prevX,
+            headY - prevY
+        );
+
+        cursorHead.style.left = headX + 'px';
+        cursorHead.style.top = headY + 'px';
+
+        trail.unshift({
+            x: headX,
+            y: headY
+        });
+
+        if (trail.length > HISTORY) {
+            trail.length = HISTORY;
+        }
+
+        trailCtx.clearRect(
+            0,
+            0,
+            trailCanvas.width,
+            trailCanvas.height
+        );
+
+        if (trail.length < 4 || speed < 0.3) return;
+
+        const pts = buildSpline(trail, 10);
+
+        const N = pts.length;
+
+        if (N < 2) return;
+
+        glowPass(pts, N, 20, 0.06, [180,100,255]);
+        glowPass(pts, N, 10, 0.15, [200,120,255]);
+        glowPass(pts, N, 4.5, 0.5, [230,185,255]);
+        glowPass(pts, N, 1.5, 0.85, [255,240,255]);
+    }
+
+    drawCursor();
+
     //startfield bg
     const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
